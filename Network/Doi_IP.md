@@ -1,13 +1,19 @@
-  [I. Đổi IP trên Ubuntu](#i-đổi-ip-trên-ubuntu)
+  [I. TOPO LAB](#i-topo-lab)
+  [II. Đổi IP trên Ubuntu](#ii-đổi-ip-trên-ubuntu)
   - [1. Mô hình](#1-mô-hình)
   - [2. Cách thực hiện](#2-cách-thực-hiện)
   
- [II. Đổi IP trên Centos](#ii-đổi-ip-trên-centos)
+  [III. Đổi IP trên Centos](#iii-đổi-ip-trên-centos)
   - [1. Mô hình](#1-mô-hình-1)
   - [2. Cách thực hiện](#2-cách-thực-hiện-1)
   
-  [III. Tổng kết](#iii-tổng-kết)
-# I. Đổi IP trên Ubuntu
+ [IV. Tổng kết](#iv-tổng-kết)
+
+# I. TOPO LAB
+- Giả lập trên VMware Workstation.
+- Centos7 và Ubuntu20.
+- Cần có ít nhất 2 máy để ping IP qua lại: máy vật lí, Client, Ubuntu, ...
+# II. Đổi IP trên Ubuntu
 ## 1. Mô hình
 ![Screenshot_15](https://i.imgur.com/6oFabo5.png)
 ## 2. Cách thực hiện
@@ -37,7 +43,7 @@ Bước 7:Bật tắt lại wifi rồi thử ping 8.8.8.8 để kiểm tra
 
 ![Screenshot_8](https://i.imgur.com/rK3ps7a.png)
 
-# II. Đổi IP trên Centos
+# III. Đổi IP trên Centos
 ## 1. Mô hình
 
 ![Screenshot_14](https://i.imgur.com/9lO8lnS.png)
@@ -70,7 +76,7 @@ Bước 3: Lưu file rồi ssh lại để kiểm tra kết quá
 
 ![Screenshot_13](https://i.imgur.com/XGbaMPI.png)
 
-# III. Tổng kết
+# IV. Tổng kết
 
 Ping bên máy Ubuntu
 
