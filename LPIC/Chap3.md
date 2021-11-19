@@ -314,14 +314,85 @@ Khi bạn tạo một file hệ thống chuyên biệt để sử dụng trong 1
 * `btrfs`: Hệ thống file hiệu suất cao , hỗ trợ file lên đến 16 exbibytes.
 * `ecryptfs`: The Enterprise Cryptographic Filesystem(eCryptfs) áp dụng Portable Operating System Interface(POSIX). Nó cung cấp một layer để bảo vệ dữ liệu trên thiết bị. Chỉ hệ điều hành đã tạo file hệ thống này mới có thể đọc dữ liệu
 * `ext3`: Hỗ trợ tệp lên đến 2TB với tổng kích thước hệ thống tệp là 16TB
+* `ext4`: Là phiên bản hiện tại của hệ thống file Linux gốc.Nõ hỗ trợ file lên đến 16TB, tổng hệ thống file là 1 EB.
+* `reiserFS`: Thường được sử dụng trên các hệ thống cũ
+* `swap`: Hệ thống file swap cho phép bạn tạo bộ nhớ ảo cho hệ thống bằng cách sử dụng ổ đĩa vậy lý.
+#### Non-Linux Filesystems
+Danh sách các hệ thống tệp mà linux có thể xử lý:
 
+*  CIFS
+*  exFAT
+*  HFS
+*  ISO-9660
+*  NFS
+*  NTFS
+*  SMB
+*  UDF
+*  VFAT
+*  XFS
+*  ZFS
+#### Creating  Filesystems
+Chương trình `mkfs` cho phép bạn tạo filesystem chỉ cần bạn nhớ kiểu filesystem muốn tạo
+```
+$ sudo mkfs -t ext4 /dev/sdb1
+mke2fs 1.44.1 (24-Mar-2018)
+Creating filesystem with 2621440 4k blocks and 655360 inodes 
+Filesystem UUID: f9137b26-0caf-4a8a-afd0-392002424ee8 
+Superblock backups stored on blocks:
+32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+...
+$
 
-
-
-
-
-
-
+```
+#### Mounting Filesystems
+Sau bạn định dạng 1 phân vùng ổ đĩa với 1 hệ thống tệp tin,bạn có thêm nó vào thư mục ảo trong hệ thống Linux.Quá trình đó gọi là liên kết hệ thống file.
+##### Manually Mounting Devices
+```
+$ sudo mount -t ext4 /dev/sdb1 /media/usb1
+$
+```
+```
+[root@nginx media]# lsblk
+NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sr0              11:0    1  918M  0 rom
+vda             252:0    0   20G  0 disk
+├─vda1          252:1    0    1G  0 part /boot
+└─vda2          252:2    0   19G  0 part
+  ├─centos-root 253:0    0   17G  0 lvm  /
+  └─centos-swap 253:1    0    2G  0 lvm  [SWAP]
+vdb             252:16   0   30G  0 disk
+└─vdb1          252:17   0   10G  0 part /media/disk1
+```
+##### Automatically Mounting Devices
+Dối với các thiết bị lưu trữ vĩnh viễn, Linux duy trì file /etc/fstab để hiển thị thiết bị ổ đĩa nào nên được mount tới thư mục ảo nào trong thời gian khởi động.
+```
+$ cat /etc/fstab
+# /etc/fstab: static file system information. 
+#
+# Use 'blkid' to print the universally unique identifier for a
+...
+$
+```
+Để mount một hệ thống file vào ổ đĩa ảo ta làm như sau
+```
+/etc/fstab: /dev/vdb1 /media/disk1/ ext4 defaults 0 0
+```
+#### Managing Filesystems
+##### Retrieving Filesystem Stats
+Một số công cụ giúp bạn theo dõi dung lượng ổ cứng
+* df: Hiện thị dung lượng ổ đĩa theo phân vùng
+* du: Hiện thị dung lượng ổ đĩa theo thư mục, rất tốt cho việc tìm người dùng hoặc ứng dụng
+* iostat: Hiện thị biểu đồ thống kê ổ đĩa theo phân vùng
+* lsblk: Hiện thị phân vùng hiện tại vào điểm gắt kết
+Ngoài những công cụ trên,thư mục /proc và /sys là những hệ thống tệp đặc biệt mà nhân sử dụng để ghi lại số liệu thống kế của hệ thống.
+##### Filesystem Tools
+Linux sử dụng gói e2fprogs cung cấp nhiều công sụ làm việc với hệ thống file ext(như ext3 và ext4)
+* blkid: Hiện thị thông tin về các thiết bị khối , như ổ đĩa lưu trữ.
+* chattr: Thay đổi thuộc tính file trên hệ thống file
+* debugfs: Xem và thay đổi cấu trúc hệ thống file theo cách thử công, cũng như khôi phụ hoặc giải nến một tệp bị hỏng
+* e2label: Thay đổi nhãn trên hệ thống file
+* resize2fs: Mở rộng hoặc rút gọn 1 hệ thống file
+* tune2fs: Chỉnh sửa tham số hệ thống file
 
 
 
